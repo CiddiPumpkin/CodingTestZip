@@ -41,16 +41,50 @@
 
 import Foundation
 
-func solution(_ n:Int, _ w:Int, _ num:Int) -> [[Int]] {
-    var column = Int(n / w)
-    var arrays:[[Int]] = Array(repeating: Array(repeating: 0, count: w), count: column)
-    var count = 1
+func solution(_ n:Int, _ w:Int, _ num:Int) -> Int {
+    var column = Int(n%w) == 0 ? Int(n/w) : Int(n/w)+1
+    var arrays = [[Int]]()
     
-    for i in 0..<arrays.count {
+    var rowCount = 1
+    
+    for culmn in 0..<column {
+        var rowArrays = [Int]()
+        for i in 1...w {
+            if rowCount > n {
+                rowArrays.append(0)
+            } else {
+                rowArrays.append(rowCount)
+                rowCount += 1
+            }
+        }
         
+        if culmn % 2 == 0 {
+            arrays.append(rowArrays)
+        } else {
+            arrays.append(rowArrays.reversed())
+        }
     }
     
-    return arrays
+    arrays = arrays.reversed()
+    
+    var boxCount = 0
+    
+    if let culmnIndex = arrays.firstIndex(where: {$0.contains(where: {$0 == num})}) {
+        if let rowIndex = arrays[culmnIndex].firstIndex(where: {$0 == num}) {
+            var index = 0
+            
+            while index <= culmnIndex {
+                if arrays[index][rowIndex] != 0 {
+                    boxCount += 1
+                    index += 1
+                }
+            }
+        }
+    }
+    
+    return boxCount
 }
 
-print(solution(15, 3, 5))
+print(solution(22, 6, 8))
+print("")
+print(solution(2060, 103, 405))
