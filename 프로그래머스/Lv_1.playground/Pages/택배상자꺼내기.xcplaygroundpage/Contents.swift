@@ -71,13 +71,8 @@ func solution(_ n:Int, _ w:Int, _ num:Int) -> Int {
     
     if let culmnIndex = arrays.firstIndex(where: {$0.contains(where: {$0 == num})}) {
         if let rowIndex = arrays[culmnIndex].firstIndex(where: {$0 == num}) {
-            var index = 0
-            
-            while index <= culmnIndex {
-                if arrays[index][rowIndex] != 0 {
-                    boxCount += 1
-                    index += 1
-                }
+            for index in 0...culmnIndex where arrays[index][rowIndex] != 0 {
+                boxCount += 1
             }
         }
     }
