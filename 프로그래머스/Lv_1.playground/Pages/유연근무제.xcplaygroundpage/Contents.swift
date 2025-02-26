@@ -67,26 +67,51 @@
 
 import Foundation
 
-func solution(_ schedules:[Int], _ timelogs:[[Int]], _ startday:Int) -> Int {
-    let zip = zip(schedules, timelogs)
-    var goodsCount = 0
-    var goods = 0
+// 나의 초기 풀이
+func solution1(_ schedules:[Int], _ timelogs:[[Int]], _ startday:Int) -> Int {
+    let employeeLogs: (schedules: [Int], timeLogs: [[Int]]) = (schedules, timelogs)
     var weekday = startday
+    var goodsCount = 0
     
-    print(zip)
-    
-    for (schedule, timelog) in zip {
+    for i in 0..<employeeLogs.schedules.count {
+        var needCount = 0
+        let schedule = employeeLogs.schedules[i]
         let hourRatio: Float = Float(((schedule + 10) % 100) / 60)
-        let limitSchedule = hourRatio < 1.0 ? schedule+10 : schedule+10+40
+        let limitSchedule = hourRatio < 1.0 ? schedule + 10 : schedule + 50
         
-        if weekday <= 6 {
-            weekday += 1
-        } else {
-            weekday = 1
+        for time in employeeLogs.timeLogs[i] {
+            if time <= limitSchedule && weekday != 6 && weekday != 7 {
+                needCount += 1
+            }
+            
+            if weekday <= 6 {
+                weekday += 1
+            } else {
+                weekday = 1
+            }
         }
-        print(weekday)
+        
+        if needCount == 5 {
+            goodsCount += 1
+        }
     }
-    return 0
+    
+    return goodsCount
 }
-
-print(solution([700, 855, 1100], [[710, 2359, 1050, 700, 650, 631, 659], [800, 801, 805, 800, 759, 810, 809], [1105, 1001, 1002, 600, 1059, 1001, 1100]], 5))
+// 다른 답안 풀이
+func solution2(_ schedules:[Int], _ timelogs:[[Int]], _ startday:Int) -> Int {
+    return schedules.indices.reduce(0){ answer, index in
+        let minute = schedules[index] % 100 + 10
+        let schedule = minute > 59 ? schedules[index] + 50 : schedules[index] + 10
+        return answer + (timelogs[index].indices.filter{(($0 + startday - 1) % 7 + 1 < 6) && timelogs[index][$0] > schedule }.count == 0 ? 1 : 0)
+    }
+}
+// 나의 응용 풀이
+func solution3(_ schedules: [Int], _ timelogs: [[Int]], _ startday: Int) -> Int {
+    return schedules.indices.reduce(0) { value, index in
+        let hourRatio = Float(((schedules[index] + 10) % 100) / 60)
+        let limitSchedule = hourRatio < 1.0 ? schedules[index] + 10 : schedules[index] + 50
+        return value + (timelogs[index].indices.filter{(($0 + startday - 1) % 7 + 1 < 6) && timelogs[index][$0] <= limitSchedule}.count == 5 ? 1 : 0)
+    }
+}
+//print(solution3([700, 855, 1100], [[710, 2359, 1050, 700, 650, 631, 659], [800, 801, 805, 800, 759, 810, 809], [1105, 1001, 1002, 600, 1059, 1001, 1100]], 5))
