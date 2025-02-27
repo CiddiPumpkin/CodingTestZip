@@ -88,12 +88,12 @@ func solution(_ friends:[String], _ gifts:[String]) -> Int {
     return 0
 } */
 func solution(_ friends:[String], _ gifts:[String]) -> Int {
-    var friendsInfo = [(name: String, send: [[String]], give: [[String]], point: Int)]()
+    var friendsInfo = [(name: String, send: [String], give: [String], point: Int)]()
     for (index, friend) in friends.enumerated() {
         // 선물 지수 구하기
         let giftInfo = gifts.indices.map{gifts[$0].split(separator: " ").map{String(describing: $0)}}
-        let sendInfo = giftInfo.filter{$0.first ?? "" == friend}
-        let giveInfo = giftInfo.filter{$0.last ?? "" == friend}
+        let sendInfo = giftInfo.filter{$0.first ?? "" == friend}.map({$0.last ?? ""})
+        let giveInfo = giftInfo.filter{$0.last ?? "" == friend}.map({$0.first ?? ""})
         let giftPoint = sendInfo.count - giveInfo.count
         
         friendsInfo.append((name: friend, send: sendInfo, give: giveInfo, point: giftPoint))
