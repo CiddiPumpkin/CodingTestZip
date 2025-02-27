@@ -100,8 +100,11 @@ func solution(_ friends:[String], _ gifts:[String]) -> Int {
     }
     print(friendsInfo)
     for (index, friend) in friendsInfo.enumerated() {
-        // 두 사람이 주고 받은 기록이 있는지 확인
         for i in friendsInfo.indices where i != index {
+            // 두 사람이 서로 선물을 주고받았는지 확인
+            if friendsInfo[i].send.contains(friend.name) && friend.send.contains(friendsInfo[i].name) {
+                
+            } 
         }
     }
     if let maxPoint = friendsInfo.max(by: {$0.point < $1.point}) {
