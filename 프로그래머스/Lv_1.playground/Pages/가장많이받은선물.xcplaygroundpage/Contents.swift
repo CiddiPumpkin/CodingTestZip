@@ -88,7 +88,7 @@ func solution(_ friends:[String], _ gifts:[String]) -> Int {
     return 0
 } */
 func solution(_ friends:[String], _ gifts:[String]) -> Int {
-    var friendsInfo = [(name: String, send: [String], give: [String], point: Int)]()
+    var friendsInfo = [(name: String, send: [String], give: [String], point: Int, nextGoods: Int)]()
     for (index, friend) in friends.enumerated() {
         // 선물 지수 구하기
         let giftInfo = gifts.indices.map{gifts[$0].split(separator: " ").map{String(describing: $0)}}
@@ -96,20 +96,38 @@ func solution(_ friends:[String], _ gifts:[String]) -> Int {
         let giveInfo = giftInfo.filter{$0.last ?? "" == friend}.map({$0.first ?? ""})
         let giftPoint = sendInfo.count - giveInfo.count
         
-        friendsInfo.append((name: friend, send: sendInfo, give: giveInfo, point: giftPoint))
+        friendsInfo.append((name: friend, send: sendInfo, give: giveInfo, point: giftPoint, nextGoods: 0))
     }
-    print(friendsInfo)
     for (index, friend) in friendsInfo.enumerated() {
         for i in friendsInfo.indices where i != index {
-            // 두 사람이 서로 선물을 주고받았는지 확인
-            if friendsInfo[i].send.contains(friend.name) && friend.send.contains(friendsInfo[i].name) {
-                
-            } 
+            let name = friendsInfo[i].name
+            let sendCount = friend.send.filter({$0 == name}).count
+            let giveCount = friend.give.filter({$0 == name}).count
+            
+            if friend.send.contains(name) && friend.give.contains(name) {
+                // 두 사람이 선물을 주고 받았을 경우 선물을 더 많이 준 사람에게 선물 추가
+                if sendCount > giveCount  {
+                    friendsInfo[index].nextGoods += 1
+                } else if sendCount == giveCount {
+                    // 주고 받은 수가 같다면 선물지수가 높은 사람한테 선물 추가
+                    if friend.point > friendsInfo[i].point {
+                        friendsInfo[index].nextGoods += 1
+                    } else if friendsInfo[i].point > friendsInfo[i].point {
+                        friendsInfo[i].nextGoods += 1
+                    }
+                }
+            } else if !friend.send.contains(name) && !friend.give.contains(name) || friend.send.contains(name) && !friend.give.contains(name) {
+                // 선물지수가 높은 사람한테 선물 추가
+                if friend.point > friendsInfo[i].point {
+                    friendsInfo[index].nextGoods += 1
+                } else if friendsInfo[i].point > friendsInfo[i].point {
+                    friendsInfo[i].nextGoods += 1
+                }
+            }
         }
     }
-    if let maxPoint = friendsInfo.max(by: {$0.point < $1.point}) {
-        
-    }
-    return 0
+    return friendsInfo.indices.map({friendsInfo[$0].nextGoods}).max() ?? 0
 }
-print(solution(["muzi", "ryan", "frodo", "neo"], ["muzi frodo", "muzi frodo", "ryan muzi", "ryan muzi", "ryan muzi", "frodo muzi", "frodo ryan", "neo muzi"]))
+//print(solution(["muzi", "ryan", "frodo", "neo"], ["muzi frodo", "muzi frodo", "ryan muzi", "ryan muzi", "ryan muzi", "frodo muzi", "frodo ryan", "neo muzi"]))
+//print(solution(["joy", "brad", "alessandro", "conan", "david"], ["alessandro brad", "alessandro joy", "alessandro conan", "david alessandro", "alessandro david"]))
+//print(solution(["a", "b", "c"], ["a b", "b a", "c a", "a c", "a c", "c a"]))
