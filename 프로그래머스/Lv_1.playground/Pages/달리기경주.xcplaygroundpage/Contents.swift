@@ -25,14 +25,19 @@
 import Foundation
 
 func solution(_ players:[String], _ callings:[String]) -> [String] {
+    var players = players
     var playerInfo = [String: Int]()
     for (index, player) in players.enumerated() {
-        playerInfo[player] = index+1
+        playerInfo[player] = index
     }
-    print(playerInfo)
     
     for calling in callings {
-        let playerRank = playerInfo[calling]
+        let nowRank = playerInfo[calling] ?? 0
+        
+        playerInfo[calling]! -= 1
+        playerInfo[players[nowRank-1]]! += 1
+        
+        players.swapAt(nowRank, nowRank-1)
     }
     return players
 }
