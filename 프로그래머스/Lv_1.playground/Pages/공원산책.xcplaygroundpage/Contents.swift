@@ -55,7 +55,7 @@
 import Foundation
 
 func solution(_ park:[String], _ routes:[String]) -> [Int] {
-    let position = park.map{$0.split(separator: "").map{String($0)}}
+    let position = park.map{$0.map{String($0)}}
     let routes = routes.map{$0.split(separator: " ").map{String($0)}}
     var yPosition = position.firstIndex(where: {$0.contains("S")}) ?? 0
     var xPosition = position[yPosition].firstIndex(where: {$0 == "S"}) ?? 0
