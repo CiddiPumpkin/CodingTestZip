@@ -57,8 +57,6 @@ import Foundation
 func solution(_ park:[String], _ routes:[String]) -> [Int] {
     let position = park.map{$0.split(separator: "").map{String($0)}}
     let routes = routes.map{$0.split(separator: " ").map{String($0)}}
-    //let route = Dictionary(uniqueKeysWithValues: zip(routes.map{$0.first!}, routes.map{Int($0.last!) ?? 0}))
-    
     var yPosition = position.firstIndex(where: {$0.contains("S")}) ?? 0
     var xPosition = position[yPosition].firstIndex(where: {$0 == "S"}) ?? 0
     
@@ -82,19 +80,13 @@ func solution(_ park:[String], _ routes:[String]) -> [Int] {
         default: break
         }
         
-        print("")
-        print(position)
-        print(y, x)
-        print(position[y][x])
-        print("")
-        
-        if position[y][x] != "X" {
+        if position[y][x] != "X" && !position[0..<y].contains(where: {$0[x] == "X"}) {
             yPosition = y
             xPosition = x
-            //print(yPosition, xPosition)
         }
     }
     return [yPosition, xPosition]}
 
 //solution(["SOO","OOO","OOO"], ["E 2","S 2","W 1"])
-solution(["SOO","OXX","OOO"], ["E 2","S 2","W 1"])
+//solution(["SOO","OXX","OOO"], ["E 2","S 2","W 1"])
+solution(["OSO","OOO","OXO","OOO"], ["E 2","S 3","W 1"] )
