@@ -85,7 +85,8 @@ func solution(_ park:[String], _ routes:[String]) -> [Int] {
             xPosition = x
         }
     }
-    return [yPosition, xPosition]}
+    return [yPosition, xPosition]
+}
 
 //solution(["SOO","OOO","OOO"], ["E 2","S 2","W 1"])
 //solution(["SOO","OXX","OOO"], ["E 2","S 2","W 1"])
