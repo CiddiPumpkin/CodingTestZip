@@ -41,4 +41,4 @@ func solution(_ players:[String], _ callings:[String]) -> [String] {
     }
     return players
 }
-print(solution(["mumu", "soe", "poe", "kai", "mine"], ["kai", "kai", "mine", "mine"]))
+//print(solution(["mumu", "soe", "poe", "kai", "mine"], ["kai", "kai", "mine", "mine"]))
