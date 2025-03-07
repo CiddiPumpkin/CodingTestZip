@@ -97,6 +97,7 @@ func solution(_ wallpaper:[String]) -> [Int] {
             }
         }
     }
+    
     return [lux, luy, rdx+1, rdy+1]
 }
 
