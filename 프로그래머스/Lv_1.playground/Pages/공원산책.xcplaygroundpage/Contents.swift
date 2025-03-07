@@ -80,14 +80,15 @@ func solution(_ park:[String], _ routes:[String]) -> [Int] {
         default: break
         }
         
-        if position[y][x] != "X" && !position[0..<y].contains(where: {$0[x] == "X"}) {
+        if position[y][x] != "X" && !position[0..<y].contains(where: {$0[x] == "X"}) && !position[y][0..<x].contains(where: {$0 == "X"}) {
             yPosition = y
             xPosition = x
         }
+        print("y position - \(yPosition), x Position- \(xPosition)")
     }
     return [yPosition, xPosition]
 }
 
-//solution(["SOO","OOO","OOO"], ["E 2","S 2","W 1"])
-//solution(["SOO","OXX","OOO"], ["E 2","S 2","W 1"])
+solution(["SOO","OOO","OOO"], ["E 2","S 2","W 1"])
+solution(["SOO","OXX","OOO"], ["E 2","S 2","W 1"])
 solution(["OSO","OOO","OXO","OOO"], ["E 2","S 3","W 1"] )
