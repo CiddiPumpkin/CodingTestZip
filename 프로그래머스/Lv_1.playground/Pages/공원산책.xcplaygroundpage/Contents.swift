@@ -60,12 +60,16 @@ func solution(_ park:[String], _ routes:[String]) -> [Int] {
     var yPosition = position.firstIndex(where: {$0.contains("S")}) ?? 0
     var xPosition = position[yPosition].firstIndex(where: {$0 == "S"}) ?? 0
     
+    print("position - \(position)")
+    
     var result = [Int]()
     for route in routes {
         var y = yPosition
         var x = xPosition
         let maxY = position.count-1
         let maxX = position[yPosition].count-1
+        
+        print("range - \(x),\(y)")
         
         var routeValue = Int(route.last!) ?? 0
         switch (route.first!) {
@@ -89,6 +93,6 @@ func solution(_ park:[String], _ routes:[String]) -> [Int] {
     return [yPosition, xPosition]
 }
 
-solution(["SOO","OOO","OOO"], ["E 2","S 2","W 1"])
-solution(["SOO","OXX","OOO"], ["E 2","S 2","W 1"])
-solution(["OSO","OOO","OXO","OOO"], ["E 2","S 3","W 1"] )
+//solution(["SOO","OOO","OOO"], ["E 2","S 2","W 1"])
+//solution(["SOO","OXX","OOO"], ["E 2","S 2","W 1"])
+//solution(["OSO","OOO","OXO","OOO"], ["E 2","S 3","W 1"])
