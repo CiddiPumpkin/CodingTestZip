@@ -67,23 +67,30 @@ import Foundation
 
 func solution(_ keymap:[String], _ targets:[String]) -> [Int] {
     var results = [Int]()
-    var keymapDict = [[:]]
+    var keymapTuples = [[(key: String, count: Int)]]()
     for key in keymap {
-        let newKey = Set(key.map{String($0)}).sorted()
-        keymapDict.append( Dictionary(uniqueKeysWithValues: zip(newKey, 1...newKey.count)) )
+        var tuples = [(key: String, count: Int)]()
+        for (index, k) in key.enumerated() {
+            tuples.append((key: String(k), count: index+1))
+        }
+        keymapTuples.append(tuples)
     }
+    
     for target in targets {
         results.append(target.reduce(0) { partialResult, result in
             let str = String(result)
             var candidates = [Int]()
-            for keymap in keymapDict where keymap[str] != nil {
-                print("str - \(str)")
-                print("str point - \(keymap[str] as! Int)\n")
-                candidates.append(keymap[str] as! Int)
+            
+            for keymap in keymapTuples {
+                if let key = keymap.first(where: {$0.key == str}) {
+                    candidates.append(key.count)
+                }
             }
-            return partialResult + (candidates.min() ?? 0)
+            
+            return candidates.count > 0 ? (partialResult + candidates.min()!) : -1
         })
     }
     return results
 }
 solution(["ABACD", "BCEFD"], ["ABCD","AABB"])
+solution(["AA"], ["B"])
