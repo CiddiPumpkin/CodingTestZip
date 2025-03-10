@@ -56,17 +56,25 @@
 import Foundation
 
 func solution(_ n:Int, _ m:Int, _ section:[Int]) -> Int {
-    return section.reduce(0) { sum, value in
-        var result = 1
-        var value = value
-        
-        while value > m {
-            result += 1
-            value -= m
+    if section.isEmpty { return 0}
+    
+    var paintCount = 0
+    var sector = Array(repeating: 1, count: n)
+    for i in section {
+        if i-1 > n {
+            return 0
         }
-        
-        return max(sum, result)
+        sector[i-1] = 0
     }
+    for i in 0..<sector.count where sector[i] == 0 {
+        let maxIndex = i+(m-1) <= n ? i+(m-1) : n
+        for j in i..<maxIndex {
+            sector[j] = 1
+        }
+        paintCount += 1
+        print(sector)
+    }
+    return paintCount
 }
-solution(8, 4, [1, 3])
-solution(4, 1, [1,2,3,4])
+solution(8, 4, [2, 3, 6])
+//solution(4, 1, [1,2,3,4])
