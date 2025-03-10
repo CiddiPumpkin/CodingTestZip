@@ -54,7 +54,7 @@
  */
 
 import Foundation
-
+/*
 func solution(_ n:Int, _ m:Int, _ section:[Int]) -> Int {
     if section.isEmpty { return 0}
     
@@ -67,14 +67,30 @@ func solution(_ n:Int, _ m:Int, _ section:[Int]) -> Int {
         sector[i-1] = 0
     }
     for i in 0..<sector.count where sector[i] == 0 {
-        let maxIndex = i+(m-1) <= n ? i+(m-1) : n
-        for j in i..<maxIndex {
+        var maxIndex = (i+(m-1) <= (n-1) ? i+(m-1) : (n-1))
+        maxIndex = maxIndex < 0 ? 0 : maxIndex
+        
+        for j in i...maxIndex {
             sector[j] = 1
         }
         paintCount += 1
-        print(sector)
     }
     return paintCount
+} */
+func solution(_ n:Int, _ m:Int, _ section:[Int]) -> Int {
+    guard !section.isEmpty else { return 0 }
+    
+    var nowValue = section[0]
+    var paintCount = 0
+    
+    for i in section {
+        if i >= nowValue {
+            paintCount += 1
+            nowValue = i + m
+        }
+    }
+    
+    return paintCount
 }
-solution(8, 4, [2, 3, 6])
+//solution(8, 4, [2, 3, 6])
 //solution(4, 1, [1,2,3,4])
