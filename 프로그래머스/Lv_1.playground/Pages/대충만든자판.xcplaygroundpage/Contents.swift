@@ -67,8 +67,8 @@ import Foundation
 
 func solution(_ keymap:[String], _ targets:[String]) -> [Int] {
     var results = [Int]()
-    var keymaps = keymap.map{$0.map{String($0)}}
     var keyDict = [String : Int]()
+    var keymaps = keymap.map({$0.map({String($0)})})
     
     for keys in keymaps {
         for key in keys {
