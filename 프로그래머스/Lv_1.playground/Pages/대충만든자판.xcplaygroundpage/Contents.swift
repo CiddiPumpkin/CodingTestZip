@@ -87,11 +87,12 @@ func solution(_ keymap:[String], _ targets:[String]) -> [Int] {
                 sum += keyDict[k]!+1
             } else {
                 sum = -1
+                break
             }
         }
         results.append(sum)
     }
     return results
 }
-solution(["ABACD", "BCEFD"], ["ABCD","AABB"])
-//solution(["AA"], ["B"])
+//solution(["ABACD", "BCEFD"], ["ABCD","AABB"])
+solution(["ABCE"], ["ABDE"])
