@@ -35,8 +35,17 @@
 import Foundation
 
 func solution(_ cards1:[String], _ cards2:[String], _ goal:[String]) -> String {
-    var results = cards1
-    results.insert(contentsOf: cards2, at: 1)
-    return results == goal ? "Yes" : "No"
+    var (cards1, cards2) = (cards1, cards2)
+    for word in goal {
+        if cards1.first == word  {
+            cards1.removeFirst()
+        } else if cards2.first == word {
+            cards2.removeFirst()
+        } else {
+            return "No"
+        }
+    }
+    return "Yes"
 }
 solution(["i", "drink", "water"], ["want", "to"], ["i", "want", "to", "drink", "water"])
+solution(["i", "water", "drink"], ["want", "to"], ["i", "want", "to", "drink", "water"])
