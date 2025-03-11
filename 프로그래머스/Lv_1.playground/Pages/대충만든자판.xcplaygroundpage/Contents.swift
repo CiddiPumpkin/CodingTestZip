@@ -67,30 +67,31 @@ import Foundation
 
 func solution(_ keymap:[String], _ targets:[String]) -> [Int] {
     var results = [Int]()
-    var keymapTuples = [[(key: String, count: Int)]]()
-    for key in keymap {
-        var tuples = [(key: String, count: Int)]()
-        for (index, k) in key.enumerated() {
-            tuples.append((key: String(k), count: index+1))
+    var keymaps = keymap.map{$0.map{String($0)}}
+    var keyDict = [String : Int]()
+    
+    for keys in keymaps {
+        for key in keys {
+            if keyDict[key] == nil {
+                keyDict[key] = keys.firstIndex(of: key)
+            } else {
+                keyDict[key] = min(keyDict[key]!, keys.firstIndex(of: key)!)
+            }
         }
-        keymapTuples.append(tuples)
     }
     
     for target in targets {
-        results.append(target.reduce(0) { partialResult, result in
-            let str = String(result)
-            var candidates = [Int]()
-            
-            for keymap in keymapTuples {
-                if let key = keymap.first(where: {$0.key == str}) {
-                    candidates.append(key.count)
-                }
+        var sum = 0
+        for k in target.map({String($0)}) {
+            if keyDict[k] != nil {
+                sum += keyDict[k]!+1
+            } else {
+                sum = -1
             }
-            
-            return candidates.count > 0 ? (partialResult + candidates.min()!) : -1
-        })
+        }
+        results.append(sum)
     }
     return results
 }
 solution(["ABACD", "BCEFD"], ["ABCD","AABB"])
-solution(["AA"], ["B"])
+//solution(["AA"], ["B"])
