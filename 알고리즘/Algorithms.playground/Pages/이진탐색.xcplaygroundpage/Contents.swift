@@ -37,4 +37,4 @@ func binarySearch(array: [Int], target: Int, start: Int, end: Int) -> Int? {
     }
 }
 
-print(" target은 \(binarySearch(array: binaryArray, target: 14, start: 0, end: binaryArray.count-1))번째 인덱스에 위치")
+//print(" target은 \(binarySearch(array: binaryArray, target: 14, start: 0, end: binaryArray.count-1))번째 인덱스에 위치")
