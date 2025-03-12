@@ -47,5 +47,5 @@ func solution(_ cards1:[String], _ cards2:[String], _ goal:[String]) -> String {
     }
     return "Yes"
 }
-solution(["i", "drink", "water"], ["want", "to"], ["i", "want", "to", "drink", "water"])
-solution(["i", "water", "drink"], ["want", "to"], ["i", "want", "to", "drink", "water"])
+//solution(["i", "drink", "water"], ["want", "to"], ["i", "want", "to", "drink", "water"])
+//solution(["i", "water", "drink"], ["want", "to"], ["i", "want", "to", "drink", "water"])
