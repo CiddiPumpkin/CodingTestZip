@@ -30,11 +30,14 @@
 import Foundation
 
 func mergeSort(_ array: [Int]) -> [Int] {
-    if array.count <= 1 { return array }
+    if array.count <= 1 {
+        print("sdsd?")
+        return array
+    }
     let center = array.count / 2
     let left = Array(array[0..<center])
     let right = Array(array[center..<array.count])
-    
+    print(center)
     print(left)
     print(right)
     
@@ -66,5 +69,5 @@ func mergeSort(_ array: [Int]) -> [Int] {
     
     return merge(mergeSort(left), mergeSort(right))
 }
-let newArray = mergeSort([6, 5, 3, 1, 8, 7, 2, 4])
-print("merge sort - \(newArray)")
+let mergeArray = mergeSort([6, 5, 3, 1, 8, 7, 2, 4])
+print("merge sort - \(mergeArray)")
