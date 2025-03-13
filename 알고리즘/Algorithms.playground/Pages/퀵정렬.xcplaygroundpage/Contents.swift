@@ -39,4 +39,4 @@ func quickSort(_ array: [Int]) -> [Int] {
     
     return quickSort(left) + [pivot] + quickSort(right)
 }
-quickSort([1, 4, 2, 3, 5, 6, 9, 7, 8])
+//quickSort([1, 4, 2, 3, 5, 6, 9, 7, 8])
