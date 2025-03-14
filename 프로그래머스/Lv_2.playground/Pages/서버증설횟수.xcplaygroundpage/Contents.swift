@@ -81,5 +81,25 @@
 import Foundation
 
 func solution(_ players:[Int], _ m:Int, _ k:Int) -> Int {
-    return 0
+    /*
+     m = 증설 기준 숫자
+     k = 증설시 운행되는 시간
+     
+     s = 증설된 서버의 수, (n * m)이상, (n+1)*m 미만일시 n대의 증설서버 필요
+     aSum = 증설된 서버의 횟수
+     */
+    
+    var server = 0
+    var serverSum = 0
+    
+    for (index, player) in players.enumerated() {
+        let serverBaseCont = m * server
+        if (player * m) > serverBaseCont && serverBaseCont < (player + 1) * m {
+            
+        }
+    }
+    
+    
+    return serverSum
 }
+solution([0, 2, 3, 3, 1, 2, 0, 0, 0, 0, 4, 2, 0, 6, 0, 4, 2, 13, 3, 5, 10, 0, 1, 5], 3, 5)
