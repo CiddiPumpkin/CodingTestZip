@@ -88,26 +88,23 @@ func solution(_ players:[Int], _ m:Int, _ k:Int) -> Int {
      s = 증설된 서버의 수, (n * m)이상, (n+1)*m 미만일시 n대의 증설서버 필요
      aSum = 증설된 서버의 횟수
      */
-    
-    var server = [Int: Int]()
+    var m = Double(m)
+    var servers = Dictionary(uniqueKeysWithValues: zip(Array(0...24), Array(repeating: 1, count: 24)))
     var serverMakeSum = 0
+    var nowServer = 0
     
     for (index, player) in players.enumerated() {
-        if index-k >= 0 {
-            if server[index-k] != nil {
-                server
-            }
-        }
-        let serverBaseCount = m * server.count
-        if (player * m) > serverBaseCount && serverBaseCount < (player + 1) * m {
-            let needServer = Int(ceil(Double(player) / Double(m)))
-            serverMakeSum += 1
-            server[index] = needServer
-        }
-        
+        let player = Double(player)
+        let needServer = player / m
+        print(needServer, index)
+        servers[index] = Int(needServer)
     }
     
+    for server in servers.sorted(by: {$0.key < $1.key}) {
+        print(server)
+    }
     
-    return serverSum
+    return serverMakeSum
 }
 solution([0, 2, 3, 3, 1, 2, 0, 0, 0, 0, 4, 2, 0, 6, 0, 4, 2, 13, 3, 5, 10, 0, 1, 5], 3, 5)
+//solution([0, 0, 0, 10, 0, 12, 0, 15, 0, 1, 0, 1, 0, 0, 0, 5, 0, 0, 11, 0, 8, 0, 0, 0], 5, 1)
