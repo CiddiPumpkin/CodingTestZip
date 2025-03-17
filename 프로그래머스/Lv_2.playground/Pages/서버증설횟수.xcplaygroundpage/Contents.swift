@@ -89,15 +89,25 @@ func solution(_ players:[Int], _ m:Int, _ k:Int) -> Int {
      aSum = 증설된 서버의 횟수
      */
     var m = Double(m)
-    var servers = Dictionary(uniqueKeysWithValues: zip(Array(0...24), Array(repeating: 1, count: 24)))
+    var servers = Dictionary(uniqueKeysWithValues: zip(Array(0...24), Array(repeating: 0, count: 24)))
     var serverMakeSum = 0
     var nowServer = 0
     
     for (index, player) in players.enumerated() {
         let player = Double(player)
-        let needServer = player / m
+        let needServer = Int(player / m)
         print(needServer, index)
-        servers[index] = Int(needServer)
+        
+        if needServer > 0 {
+            for i in index..<index+k {
+                servers[i] = needServer
+                
+                if (servers[i-k] ?? 0) > 0 {
+                    let result = (needServer - servers[i-k]!)
+                    servers[i] = result < 0 ? 0 : result
+                }
+            }
+        }
     }
     
     for server in servers.sorted(by: {$0.key < $1.key}) {
