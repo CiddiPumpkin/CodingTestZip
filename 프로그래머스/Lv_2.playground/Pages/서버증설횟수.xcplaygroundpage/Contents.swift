@@ -89,14 +89,22 @@ func solution(_ players:[Int], _ m:Int, _ k:Int) -> Int {
      aSum = 증설된 서버의 횟수
      */
     
-    var server = 0
-    var serverSum = 0
+    var server = [Int: Int]()
+    var serverMakeSum = 0
     
     for (index, player) in players.enumerated() {
-        let serverBaseCont = m * server
-        if (player * m) > serverBaseCont && serverBaseCont < (player + 1) * m {
-            
+        if index-k >= 0 {
+            if server[index-k] != nil {
+                server
+            }
         }
+        let serverBaseCount = m * server.count
+        if (player * m) > serverBaseCount && serverBaseCount < (player + 1) * m {
+            let needServer = Int(ceil(Double(player) / Double(m)))
+            serverMakeSum += 1
+            server[index] = needServer
+        }
+        
     }
     
     
