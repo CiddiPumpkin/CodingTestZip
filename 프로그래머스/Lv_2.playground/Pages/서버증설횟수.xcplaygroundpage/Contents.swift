@@ -95,7 +95,7 @@ func solution(_ players:[Int], _ m:Int, _ k:Int) -> Int {
     
     for (index, player) in players.enumerated() {
         let player = Double(player)
-        let needServer = Int(player / m)
+        let needServer = player < m ? Int(0) : Int(ceil(player / m))
         print(needServer, index)
         
         if needServer > 0 {
