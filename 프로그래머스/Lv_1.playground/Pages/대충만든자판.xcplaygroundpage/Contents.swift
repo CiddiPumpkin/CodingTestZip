@@ -95,4 +95,4 @@ func solution(_ keymap:[String], _ targets:[String]) -> [Int] {
     return results
 }
 //solution(["ABACD", "BCEFD"], ["ABCD","AABB"])
-solution(["ABCE"], ["ABDE"])
+//solution(["ABCE"], ["ABDE"])

@@ -114,4 +114,4 @@ func solution3(_ schedules: [Int], _ timelogs: [[Int]], _ startday: Int) -> Int 
         return value + (timelogs[index].indices.filter{(($0 + startday - 1) % 7 + 1 < 6) && timelogs[index][$0] <= limitSchedule}.count == 5 ? 1 : 0)
     }
 }
-print(solution1([700, 855, 1100], [[710, 2359, 1050, 700, 650, 631, 659], [800, 801, 805, 800, 759, 810, 809], [1105, 1001, 1002, 600, 1059, 1001, 1100]], 5))
+//print(solution1([700, 855, 1100], [[710, 2359, 1050, 700, 650, 631, 659], [800, 801, 805, 800, 759, 810, 809], [1105, 1001, 1002, 600, 1059, 1001, 1100]], 5))

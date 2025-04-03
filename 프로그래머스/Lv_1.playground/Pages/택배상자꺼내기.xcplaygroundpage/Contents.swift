@@ -80,4 +80,4 @@ func solution(_ n:Int, _ w:Int, _ num:Int) -> Int {
     return boxCount
 }
 
-//print(solution(22, 6, 2))
+print(solution(22, 6, 2))
